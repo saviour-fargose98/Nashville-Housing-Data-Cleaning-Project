@@ -110,13 +110,8 @@ End
 
 ---remove duplicates--
 with rownumcte as(
-select *,
-row_number() 
-over( partition by parcelid, 
-                   propertyaddress,
-				   saleprice,
-				   saledate,
-				   legalreference
+select *, row_number() 
+over( partition by parcelid, propertyaddress, saleprice, saledate, legalreference
 order by uniqueid) row_num from [Nashville Housing]
 ) 
 delete  from rownumcte where row_num>1 
@@ -125,11 +120,7 @@ delete  from rownumcte where row_num>1
 with rownumcte as(
 select *,
 row_number() 
-over( partition by parcelid, 
-                   propertyaddress,
-				   saleprice,
-				   saledate,
-				   legalreference
+over( partition by parcelid, propertyaddress, saleprice, saledate, legalreference
 order by uniqueid) row_num from [Nashville Housing]
 ) 
 select *  from rownumcte where row_num>1 
